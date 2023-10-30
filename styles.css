@@ -150,7 +150,6 @@ p{
     background: var(--div-background-color);
     border-radius: 1em 0 0 1em;
 
-    -webkit-backdrop-filter: blur(12.7px);
     border: 2px solid var(--divider-color);
     padding: 1em ;
 }
