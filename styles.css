@@ -7,7 +7,7 @@ html {
     --white: #E6E6E6;
     --gray : #CCCACA;
     --gray-2 : #A8A2A2;
-    --background-color: #404258;
+    --background-color: #383a4f;
     --div-background-color: #ffffff12;
     --divider-color: #6B728E;
 }
@@ -30,21 +30,27 @@ i{
     border: 1px solid var(--divider-color);
 }
 
-.dot  {
-    
-    height: 15px;
-    width: 15px;
-    background-color: transparent;
-    border: 0.25em solid var(--divider-color);
-    border-radius: 50%;
-    transition: background-color 0.5s;
+p{
+    color: var(--gray-2);
+    margin-top: 1em;
 }
 
-.dot:hover{
-    background-color: var(--blue);
+.section{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 8em;
+    width: 60%;
+    margin: 0 auto;
 }
 
-
+.section-title{
+    color: var(--gray);
+    font-size: 1.3em;
+    margin-bottom: 2em;
+    letter-spacing: 0.2em;
+}
 
 
 
@@ -117,7 +123,7 @@ i{
     width: 8%;
     z-index: 1;
 
-    background: rgba(255, 255, 255, 0.07);
+    background: var(--div-background-color);
     border-radius: 16px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(12.7px);
@@ -139,6 +145,7 @@ i{
 }
 
 .nav > li > a{
+     letter-spacing: 0.2em;
     text-decoration: none;
     color: var(--white);
     font-size: 1.2em;
@@ -157,65 +164,80 @@ i{
 
 
 /* Educarion section */
-.education-section{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    margin-top: 8em;
-}
 
-.education-section > .education-title > h1{
-    color: var(--blue);
-    font-size: 2.4em;
-    margin-bottom: 2em;
-}
-
-.education-section > .time-cards{
-    display: flex;
-    justify-content: space-between;
-    width: 65%;
-    margin-bottom: 3em;
-}
-
-.education-section > .time-cards >.cards{
+.education-section >.cards{
     display: flex;
     flex-direction: column;
     align-items: center;
     
 }
 
-.education-section > .time-cards > .cards > .education-card{
+.education-section > .cards > .education-card{
     display: flex;
     flex-direction: column  ;
-    width: 100%;
+    width: 80%;
     margin-bottom: 3em;
     background: var(--div-background-color);
     border-radius: 16px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(12.7px);
-    -webkit-backdrop-filter: blur(12.7px);
     border: 2px solid var(--divider-color);
     padding: 2em;
-    transition: background-color 0.5s, margin 0.5s, border 0.5s;
+    transition: background-color 0.5s, border 0.5s, transform 0.5s, backdrop-filter 0.5s;
+    transform: scale(1);
 }
 
-.education-section > .time-cards > .cards > .education-card:hover{
+.education-section > .cards > .education-card:hover{
+    
+    backdrop-filter: blur(5px);
+    transform: scale(1.2);
     background-color: var(--background-color);
+    backdrop-filter: opacity(0.1);
     border: 2px solid var(--blue);
-    margin-right: 5em;
+
 }
 
-.education-section > .time-cards > .cards > .education-card h3{
+.education-section  > .cards > .education-card h3{
     color: var(--gray);
 }
 
-.education-section  > .time-cards > .cards > .education-card h4{
+.education-section  > .cards > .education-card h4{
     color: var(--blue);
     margin-top: -0.5em;
 }
 
-.education-section > .time-cards > .cards > .education-card p{
-    color: var(--gray-2);
-    margin-top: 1em;
+.education-section  > .cards > .education-card::before{
+    content: '';
+    position: absolute;
+    width: 0.6em;
+    height: 0.6em;
+    border: 0.3em solid var(--divider-color);
+    background-color: var(--divider-color);
+    border-radius: 50%;
+    
+    margin-left: -7.5em;
+    transition: background-color 0.5s, border 0.5s;
 }
+
+.education-section  > .cards > .education-card:hover::before{
+    background-color: var(--blue);
+    border-color: var(--blue);
+}
+
+.education-section  > .cards > .education-card::after{
+    content: '';
+    position: absolute;
+    width: 0.1em;
+    padding:10% 0;
+    background-color: var(--divider-color);
+    
+    margin-left: -7em;
+    transition: background-color 0.5s, border 0.5s;
+}
+
+.education-section  > .cards > .education-card:hover::after{
+    background-color: var(--blue);
+}
+
+
+/* Experience section */
+
