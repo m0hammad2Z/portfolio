@@ -1,0 +1,221 @@
+html {
+    scroll-behavior: smooth;
+  }
+
+  :root{
+    --blue: #19AEFF;
+    --white: #E6E6E6;
+    --gray : #CCCACA;
+    --gray-2 : #A8A2A2;
+    --background-color: #404258;
+    --div-background-color: #ffffff12;
+    --divider-color: #6B728E;
+}
+
+body{
+    background-color: var(--background-color);
+    color: var(--white);
+    text-transform: uppercase;
+    font-family: 'Fredoka', sans-serif;
+}
+
+i{
+    color: var(--gray-2);
+    font-size:1.5em;
+}
+
+.page-divider{
+    margin-top: 8em;
+    width: 70%;
+    border: 1px solid var(--divider-color);
+}
+
+.dot  {
+    
+    height: 15px;
+    width: 15px;
+    background-color: transparent;
+    border: 0.25em solid var(--divider-color);
+    border-radius: 50%;
+    transition: background-color 0.5s;
+}
+
+.dot:hover{
+    background-color: var(--blue);
+}
+
+
+
+
+
+
+/* Head */
+.head{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 2em;
+    margin-top: 3em;
+}
+
+.head > .left-side{
+    display: flex;
+    flex-direction: column;
+    width: 45%;
+}
+
+.head > .left-side > div{
+    margin-top: 2.6em;
+    padding-left: 4em;
+}
+
+.head > .left-side div > h3{
+    color: var(--gray);
+}
+
+.head > .left-side .social-media{
+    display: flex;
+    justify-content: space-between;
+    width: 20%;
+}
+
+.head > .left-side > .name-section > h3{
+    color:  var(--blue);
+    margin-top: -1em;
+}
+
+.head > .left-side > .name-section > h1{
+    font-size: 2.8em;
+}
+
+
+.head > .right-side > img{
+    width: 80%;
+}
+
+.head > .left-side > .about{
+    color: var(--gray-2);
+}
+
+.head > .left-side > .about h3{
+    color: var(--gray);
+}
+
+
+/* Nav */
+.nav{
+    position: fixed;
+    bottom: 15%;
+    right: 0;
+    color: var(--gray);
+    margin-right:2em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    height: 70%;
+    width: 8%;
+    z-index: 1;
+
+    background: rgba(255, 255, 255, 0.07);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(12.7px);
+    -webkit-backdrop-filter: blur(12.7px);
+    border: 2px solid var(--divider-color);
+    padding: 1em;
+    
+   
+}
+
+.nav > hr{
+    width: 1px;
+    height: 100%;
+    background-color: var(--gray);    
+}
+
+.nav > li{
+    list-style: none;
+}
+
+.nav > li > a{
+    text-decoration: none;
+    color: var(--white);
+    font-size: 1.2em;
+    font-weight: bold;
+    /* border-right: 3px solid var(--white); */
+    padding: 0.5em;
+    transition: color 0.3s , margin 0.3s;
+}
+
+.nav > li > a:hover{
+    margin-right: 0.9em;
+    color: var(--blue);
+    border-color: var(--blue);
+}
+
+
+
+/* Educarion section */
+.education-section{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 8em;
+}
+
+.education-section > .education-title > h1{
+    color: var(--blue);
+    font-size: 2.4em;
+    margin-bottom: 2em;
+}
+
+.education-section > .time-cards{
+    display: flex;
+    justify-content: space-between;
+    width: 65%;
+    margin-bottom: 3em;
+}
+
+.education-section > .time-cards >.cards{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+.education-section > .time-cards > .cards > .education-card{
+    display: flex;
+    flex-direction: column  ;
+    width: 100%;
+    margin-bottom: 3em;
+    background: var(--div-background-color);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(12.7px);
+    -webkit-backdrop-filter: blur(12.7px);
+    border: 2px solid var(--divider-color);
+    padding: 2em;
+    transition: background-color 0.5s, margin 0.5s, border 0.5s;
+}
+
+.education-section > .time-cards > .cards > .education-card:hover{
+    background-color: var(--background-color);
+    border: 2px solid var(--blue);
+    margin-right: 5em;
+}
+
+.education-section > .time-cards > .cards > .education-card h3{
+    color: var(--gray);
+}
+
+.education-section  > .time-cards > .cards > .education-card h4{
+    color: var(--blue);
+    margin-top: -0.5em;
+}
+
+.education-section > .time-cards > .cards > .education-card p{
+    color: var(--gray-2);
+    margin-top: 1em;
+}
