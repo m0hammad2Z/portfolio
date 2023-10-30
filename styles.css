@@ -1,6 +1,6 @@
-html {
+html{
     scroll-behavior: smooth;
-  }
+}
 
   :root{
     --blue: #19AEFF;
@@ -13,7 +13,7 @@ html {
 }
 
 body{
-    background-color: var(--background-color);
+    background-image: linear-gradient(180deg, #383a4f 0%, rgb(12, 12, 17) 100%);
     color: var(--white);
     text-transform: uppercase;
     font-family: 'Fredoka', sans-serif;
@@ -37,20 +37,38 @@ p{
 
 .section{
     display: flex;
-    flex-direction: column;
     justify-content: space-around;
-    align-items: center;
-    margin-top: 8em;
-    width: 60%;
+    align-items: flex-start;
+    width: 70%;
     margin: 0 auto;
+    margin-top: 8em;
 }
 
 .section-title{
     color: var(--gray);
     font-size: 1.3em;
     margin-bottom: 2em;
+    margin-top: 2em;
     letter-spacing: 0.2em;
+    width: fit-content;
+
+    border-bottom: 1px solid var(--divider-color);
 }
+
+.cards{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cards hr{
+    margin: 0;
+    height: 15em;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--divider-color);  
+}
+
+
 
 
 
@@ -96,6 +114,10 @@ p{
 
 
 .head > .right-side > img{
+    background-image: url(images/blue-circle.png);
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-size: 100%;
     width: 80%;
 }
 
@@ -114,24 +136,27 @@ p{
     bottom: 15%;
     right: 0;
     color: var(--gray);
-    margin-right:2em;
+    margin-right:-9em;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
     height: 70%;
-    width: 8%;
+    width: fit-content;
     z-index: 1;
 
+    transition: margin 0.3s;
+
     background: var(--div-background-color);
-    border-radius: 16px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(12.7px);
+    border-radius: 1em 0 0 1em;
+
     -webkit-backdrop-filter: blur(12.7px);
     border: 2px solid var(--divider-color);
-    padding: 1em;
-    
-   
+    padding: 1em ;
+}
+
+.nav:hover{
+    margin-right: 0em;
 }
 
 .nav > hr{
@@ -141,22 +166,24 @@ p{
 }
 
 .nav > li{
+    transform: scale(1);
     list-style: none;
+    transition: transform 0.5s;
+}
+.nav > li:hover{
+    transform: translateX(-100%)
+    scale(3)
 }
 
 .nav > li > a{
-     letter-spacing: 0.2em;
+    letter-spacing: 0.2em;
     text-decoration: none;
     color: var(--white);
-    font-size: 1.2em;
+    font-size: 1.1em;
     font-weight: bold;
-    /* border-right: 3px solid var(--white); */
-    padding: 0.5em;
-    transition: color 0.3s , margin 0.3s;
 }
 
 .nav > li > a:hover{
-    margin-right: 0.9em;
     color: var(--blue);
     border-color: var(--blue);
 }
@@ -164,19 +191,10 @@ p{
 
 
 /* Educarion section */
-
-.education-section >.cards{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    
-}
-
 .education-section > .cards > .education-card{
     display: flex;
     flex-direction: column  ;
-    width: 80%;
-    margin-bottom: 3em;
+    width: 70%;
     background: var(--div-background-color);
     border-radius: 16px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -184,16 +202,13 @@ p{
     padding: 2em;
     transition: background-color 0.5s, border 0.5s, transform 0.5s, backdrop-filter 0.5s;
     transform: scale(1);
+    box-sizing: border-box;
 }
 
 .education-section > .cards > .education-card:hover{
-    
-    backdrop-filter: blur(5px);
     transform: scale(1.2);
     background-color: var(--background-color);
-    backdrop-filter: opacity(0.1);
     border: 2px solid var(--blue);
-
 }
 
 .education-section  > .cards > .education-card h3{
@@ -205,39 +220,69 @@ p{
     margin-top: -0.5em;
 }
 
-.education-section  > .cards > .education-card::before{
-    content: '';
-    position: absolute;
-    width: 0.6em;
-    height: 0.6em;
-    border: 0.3em solid var(--divider-color);
-    background-color: var(--divider-color);
-    border-radius: 50%;
-    
-    margin-left: -7.5em;
-    transition: background-color 0.5s, border 0.5s;
-}
-
-.education-section  > .cards > .education-card:hover::before{
-    background-color: var(--blue);
-    border-color: var(--blue);
-}
-
-.education-section  > .cards > .education-card::after{
-    content: '';
-    position: absolute;
-    width: 0.1em;
-    padding:10% 0;
-    background-color: var(--divider-color);
-    
-    margin-left: -7em;
-    transition: background-color 0.5s, border 0.5s;
-}
-
-.education-section  > .cards > .education-card:hover::after{
-    background-color: var(--blue);
-}
 
 
 /* Experience section */
+.experience-section{
+    flex-direction: row-reverse;
+}
 
+.experience-section > .cards > .experience-card{
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    background: var(--div-background-color);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border: 2px solid var(--divider-color);
+    padding: 2em 4em;
+    box-sizing: border-box;
+    transition: background-color 0.5s, border 0.5s, transform 0.5s, backdrop-filter 0.5s;
+    transform: scale(1);
+}
+
+.experience-section > .cards > .experience-card:hover{
+    transform: scale(1.2);
+    background-color: var(--background-color);
+    border: 2px solid var(--blue);
+}
+
+.experience-section > .cards > .experience-card .start-date{
+    margin: -2.5em auto 0em auto;
+}
+
+.experience-section > .cards > .experience-card .end-date{ 
+    margin: 2em auto -2.5em auto;
+}
+
+.experience-section > .cards > .experience-card > .card-head{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1em;
+}
+
+.experience-section > .cards > .experience-card > .card-head > .left-side{
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.experience-section > .cards > .experience-card > .card-head img{
+    width: 20%;
+    border-radius: 1em;
+}
+
+
+.experience-section  > .cards > .experience-card h3{
+    color: var(--gray);
+}
+
+.experience-section  > .cards > .experience-card > .card-head h4{
+    color: var(--blue);
+    margin-top: -0.5em;
+}
+
+.experience-section  > .cards > .experience-card h4{
+    color: var(--blue);
+}
