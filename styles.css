@@ -88,7 +88,7 @@ p {
 }
 
 .head>.left-side>div {
-    margin-top: 2.6em;
+    margin-top: 2.8em;
     padding-left: 4em;
 }
 
@@ -96,10 +96,20 @@ p {
     color: var(--gray);
 }
 
-.head>.left-side .social-media {
-    display: flex;
-    justify-content: space-between;
-    width: 20%;
+.head a{
+    text-decoration: none;
+    color: var(--white);
+    background-color: var(--blue);
+    padding: 1em;
+    border-radius: 1em;
+    font-size: 1.1em;
+    font-weight: bold;
+    transition: color 0.5s, background-color 0.5s;
+}
+
+.head a:hover {
+    color: var(--blue);
+    background-color: var(--background-color);
 }
 
 .head>.left-side>.name-section>h3 {
@@ -161,32 +171,29 @@ p {
     background-color: var(--gray);
 }
 
-.nav>li {
-    transform: scale(1);
-    list-style: none;
-    transition: transform 0.5s;
-}
-
-.nav>li:hover {
-    transform: translateX(-100%) scale(3)
-}
-
-.nav>li>a {
+.nav>a {
+    width: 100%;
+    text-align: center;
     letter-spacing: 0.2em;
     text-decoration: none;
-    color: var(--white);
     font-size: 1.1em;
     font-weight: bold;
+    color: var(--white);
+    transform: scale(1);
+    list-style: none;
+    transition: transform 0.5s, border 0.5s, color 0.5s;
 }
 
-.nav>li>a:hover {
+.nav>a:hover {
     color: var(--blue);
     border-color: var(--blue);
+    transform: scale(1.1);
+
 }
 
 
 
-/* Educarion section */
+/* Education section */
 .education-section>.cards>.education-card {
     display: flex;
     flex-direction: column;
@@ -214,6 +221,49 @@ p {
 .education-section>.cards>.education-card h4 {
     color: var(--blue);
     margin-top: -0.5em;
+}
+
+
+/* Skills section */
+.skills-section{
+    flex-wrap: wrap;
+    text-align: center;
+}
+
+.skills-section > .skills-title{
+    flex-basis: 100%;  
+    border: none;
+}
+
+.skills-section > .skills-title > h1{
+    width: fit-content;
+    margin: 0 auto;
+    padding-bottom: 1em;
+    box-sizing: border-box;
+    border-bottom: 1px solid var(--divider-color);
+}
+
+.skills-section > .soft-skills, .development-skills{
+    width: 30em;
+}
+
+.skills-section .skill{
+    display: flex;
+    flex-direction: column;
+}
+
+.skills-section .skill > .title-image{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.skills-section .skill > .bar{
+    width: 15%;
+    height: 0.1em;
+    background-color: var(--blue);
+    border-radius: 1em;
 }
 
 
@@ -315,14 +365,14 @@ p {
     flex-direction: row;
     gap: 2em;
     width: 35em;
-    height: 40em;
+    height: 35em;
     background: var(--div-background-color);
     border-radius: 1em;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     border: 2px solid var(--divider-color);
     padding: 2em 3em;
     box-sizing: border-box;
-    transition: background-color 0.5s, border 0.5s, transform 0.5s;
+    transition: background-color 0.5s, border 0.5s;
     transform: scale(1);
 }
 
@@ -339,9 +389,8 @@ p {
 }
 
 .projects-section>.cards>.project-card:hover{
-    transform: scale(1.1);
-    background-color: var(--background-color);
-    border: 2px solid var(--blue);
+    background-color: transparent;
+    border: 2px solid transparent;
 }
 
 .projects-section>.cards>.project-card:hover .project-details {
@@ -350,7 +399,7 @@ p {
 }
 
 .projects-section>.cards>.project-card:hover .left-side {
-    flex: 0 0 55%;
+    flex: 0 0 45%;
 }
 
 .projects-section>.cards>.project-card  img {
@@ -359,3 +408,28 @@ p {
 }
 
 
+/* Footer */
+.social-media {
+    display: flex;
+    justify-content: space-between;
+    width: 15%;
+}
+
+.footer-section{
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: 7em;
+    flex-direction: column;
+    text-align: center;
+    
+}
+
+.footer-section > .name-section > h4 {
+    color: var(--blue);
+    margin-top: -1em;   
+}
+
+.footer-section > .phone-email-section > h4:nth-child(2) {
+    margin-top: -1em;
+    margin-bottom: 2em;
+}
