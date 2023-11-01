@@ -228,6 +228,7 @@ p {
 .skills-section{
     flex-wrap: wrap;
     text-align: center;
+    
 }
 
 .skills-section > .skills-title{
@@ -247,6 +248,18 @@ p {
     width: 30em;
 }
 
+.skills-section h3{
+    color: var(--gray-2);
+}
+
+.skills-section i{
+    border-radius: 1em;
+    padding: 0.5em;
+    background-color: var(--div-background-color);
+    width: 10%;
+}
+
+
 .skills-section .skill{
     display: flex;
     flex-direction: column;
@@ -263,7 +276,22 @@ p {
     width: 15%;
     height: 0.1em;
     background-color: var(--blue);
-    border-radius: 1em;
+    transition: width 0.5s;
+}
+
+.skills-section .skill:hover > .bar{
+    width: 100%;
+}
+
+.skills-section .skill:hover > .title-image > i{
+    background-color: var(--blue);
+    color: var(--white);
+    transition: background-color 0.5s, color 0.5s;
+}
+.skills-section .skill:hover > .title-image > i{
+    background-color: var(--blue);
+    color: var(--white);
+    transition: background-color 0.5s, color 0.5s;
 }
 
 
