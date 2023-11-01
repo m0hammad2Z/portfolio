@@ -14,6 +14,3 @@ This section will detail my professional experience, roles, responsibilities, an
 
 ## Contact
 How to reach me: [Insert contact information here]
-
-## License
-This project is licensed under the [Insert License Here]
