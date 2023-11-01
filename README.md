@@ -11,3 +11,6 @@ This section will list all the technical skills I have, such as programming lang
 
 ## Experience
 This section will detail my professional experience, roles, responsibilities, and achievements.
+
+## Education
+This section will detail my education.
