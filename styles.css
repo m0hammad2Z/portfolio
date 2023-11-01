@@ -10,6 +10,9 @@ html {
     --background-color: #383a4f;
     --div-background-color: #ffffff12;
     --divider-color: #6B728E;
+
+    /* Vertical screen edge fade */
+    
 }
 
 body {
@@ -74,17 +77,20 @@ p {
 
 /* Head */
 .head {
+    width: 80%;
+    margin: 0 auto;
     display: flex;
     justify-content: space-around;
     align-items: center;
     padding: 2em;
     margin-top: 3em;
+    
 }
 
 .head>.left-side {
     display: flex;
     flex-direction: column;
-    width: 45%;
+    width: 50%;
 }
 
 .head>.left-side>div {
@@ -121,13 +127,15 @@ p {
     font-size: 2.8em;
 }
 
+.head>.right-side {
+    display: flex; 
+    justify-content: center;
+    width: 35%;
+}
 
 .head>.right-side>img {
-    background-image: url(images/blue-circle.png);
-    background-repeat: no-repeat;
-    background-position: bottom;
-    background-size: 100%;
-    width: 80%;
+    width: 100%;
+    filter: grayscale(60%) brightness(85%) blur(0.5px);
 }
 
 .head>.left-side>.about {
@@ -412,8 +420,7 @@ p {
 
 .projects-section>.cards>.project-card .project-details {
     display: none;
-    opacity: 0;
-    transition: opacity 0.5s;
+    transition: opacity 5s;
 }
 
 .projects-section>.cards>.project-card:hover{
@@ -423,7 +430,6 @@ p {
 
 .projects-section>.cards>.project-card:hover .project-details {
     display: block;
-    opacity: 1;
 }
 
 .projects-section>.cards>.project-card:hover .left-side {
