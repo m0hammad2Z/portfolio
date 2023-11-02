@@ -14,3 +14,5 @@ This section will detail my professional experience, roles, responsibilities, an
 
 ## Education
 This section will detail my education.
+
+## https://miro.com/app/board/uXjVNVVqoWI=/?share_link_id=242033000245
