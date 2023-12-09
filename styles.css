@@ -14,10 +14,10 @@ html {
 }
 
 body {
-    background-image: linear-gradient(180deg, #383a4f 0%, rgb(12, 12, 17) 100%);
+    background-color: var(--background-color);
     color: var(--white);
     text-transform: uppercase;
-    font-family: 'Fredoka', sans-serif;
+    font-family: 'Fredoka';
 }
 
 h3 {
@@ -530,6 +530,33 @@ body > div{
     margin-top: -1em;
     margin-bottom: 2em;
 }
+
+/*Theme toolbar */
+.theme-options{
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: space-around;
+    justify-content:center;
+    gap: 2em;
+    top: 15%;
+    transform: translateX(-95%);
+    width: fit-content;
+    z-index: 1;
+    background: var(--div-background-color);
+    border-radius: 1em;
+    padding: 1em;
+    text-align: center;
+    transition: transform 0.3s;
+}
+
+.theme-options:hover{
+    transform: translateX(0);
+}
+
+
+
+
 
 /* Media Queries */
 

@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -470,6 +474,96 @@
 
     </div>
 
-</body>
+    <?php
+        
+
+        if(isset($_SESSION['user'])){    
+        ?>
+
+    
+    <div class="theme-options">
+            <div class="theme-option">
+                <div class="theme-option-title">
+                    <h5>Font Type</h5>
+                </div>
+                <div class="theme-option-content">
+                    <select name="font-type" id="font-type">
+                        <option value="Fredoka">Fredoka</option>
+                        <option value="Roboto">Roboto</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="theme-option">
+                <div class="theme-option-title">
+                    <h5>Font Color</h5>
+                </div>
+                <div class="theme-option-content">
+                    <input type="color" name="font-color" id="font-color">
+                </div>
+            </div>
+
+            <div class="theme-option">
+                <div class="theme-option-title">
+                    <h5>Background</h5>
+                </div>
+                <div class="theme-option-content">
+                    <input type="color" name="background-color" id="background-color">
+                </div>
+            </div>
+
+            <div class="theme-option">
+                <div class="theme-option-title">
+                    <h5>Primary</h5>
+                </div>
+                <div class="theme-option-content">
+                    <input type="color" name="primary-color" id="primary-color">
+                </div>
+            </div>
+
+            <div class="theme-option">
+                <div class="theme-option-title">
+                    <h5>Secondary</h5>
+                </div>
+                <div class="theme-option-content">
+                    <input type="color" name="secondary-color" id="secondary-color">
+                </div>
+            </div>
+        </div>
+     </div>
+    
+    
+     <script src="ajax.js"></script>
+    <?php } else{
+        ?>
+
+        <script>
+            window.onload = function() {
+                $.ajax({
+                    type: 'GET',
+                    url: 'themeHandling.php', 
+                    contentType: 'application/json',
+                    success: function(response) {
+                        response = JSON.parse(response);
+                        document.body.style.fontFamily = response['fontType'];
+                        document.body.style.color = response['fontColor'];
+                        document.body.style.backgroundColor = response['backgroundColor'];
+                        document.documentElement.style.setProperty('--blue', response['primaryColor']);
+                        document.documentElement.style.setProperty('--divider-color', response['secondaryColor']);
+                    },
+                    error: function(error) {
+                        console.error(error);
+                    }
+                });
+            }
+        </script>
+
+
+<?php } ?>
+    
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    </body>
 
 </html>
+
