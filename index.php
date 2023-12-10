@@ -1,5 +1,18 @@
 <?php
 session_start();
+
+include('user.php');
+include('site.php');
+
+$site= Site::getSite();
+$user = User::getUser();
+
+if($site === null){
+    $site = new Site("Hello,", "files/Mohammad_Al-Zaro_CV.pdf", "images/me.png", "I AM A WEB DEVELOPER AND SOFTWARE ENGINEER WITH A STRONG WORK ETHIC AND A PASSION FOR INNOVATION. I HAVE THE SKILLS AND EXPERIENCE TO CONTRIBUTE TO A VARIETY OF PROJECTS IN A PROFESSIONAL ENVIRONMENT.");
+    $site->add();
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -21,31 +34,30 @@ session_start();
     <div class="head" id="head">
         <div class="left-side">
             <div class="hello">
-                <h1>HELLO,</h1>
+                <h1><?php echo $site->welcomeText;?></h1>
             </div>
             <div class="name-section">
-                <h1>I'M MOHAMMAD ALZARO</h1>
-                <h2>FULL STACK DEVELOPER</h2>
+                <h1>I'M <?php echo $user->name;?></h1>
+                <h2><?php echo $user->pos?></h2>
             </div>
 
             <div class="social-media">
-                <a  target="_blank" href="#"><i class="fab fa-instagram"></i></a>
-                <a  target="_blank" href="#"><i class="fab fa-linkedin"></i></a>
-                <a  target="_blank" href="#"><i class="fab fa-github"></i></a>
-                <a  target="_blank" href="#"><i class="fab fa-facebook"></i></a>
-                <a  target="_blank" href="#"><i class="fab fa-instagram"></i></a>
+                <a  target="_blank" href="<?php echo $site->facebookLink;?>"><i class="fab fa-facebook"></i></a>
+                <a  target="_blank" href="<?php echo $site->linkedinLink;?>"><i class="fab fa-linkedin"></i></a>
+                <a  target="_blank" href="<?php echo $site->githubLink;?>"><i class="fab fa-github"></i></a>
+                <a  target="_blank" href="<?php echo $site->twitterLink;?>"><i class="fab fa-twitter"></i></a>
             </div>
 
 
             <div class="download-button">
-                <a target="_blank" href="files/Mohammad_Al-Zaro_CV.pdf" download="newfilename">view CV</a>
+                <a target="_blank" href="<?php echo $site->cvLink?>" download="newfilename">view CV</a>
             </div>
 
 
         </div>
 
         <div class="right-side">
-            <img src="images/me.png" alt="">
+            <img src="<?php echo $site->imageLink;?>">
         </div>
 
         <div class="bottom-arrow">
@@ -78,8 +90,8 @@ session_start();
             <h1>About</h1>
         </div>
         <div class="about">
-            <h3>I am a web developer and software engineer with a strong work ethic and a passion for innovation. I
-                have the skills and experience to contribute to a variety of projects in a professional environment.
+            <h3>
+                <?php echo $site->aboutText;?>
             </h3>
         </div>
     </clsas>
@@ -451,21 +463,21 @@ session_start();
 
     <div class="footer-section section" id="footer-section">
         <div class="name-section">
-            <h1>MOHAMMAD ALZARO</1>
-            <h4>Full Stack Developer</h4>
+            <h1><?php echo $user->name?></1>
+            <h4><?php echo $user->pos?></h4>
 
         </div>
         <div class="phone-email-section">
-            <h3> +962 7 99 99 99 99</h3>
-            <h3> imhamd33@gmail.com </h3>
+            <h3><?php echo $user->mobile?></h3>
+            <h3><?php echo $user->email?></h3>
+            
         </div>
 
         <div class="social-media">
-            <a  target="_blank" href="#"><i class="fab fa-instagram"></i></a>
-            <a  target="_blank" href="#"><i class="fab fa-linkedin"></i></a>
-            <a  target="_blank" href="#"><i class="fab fa-github"></i></a>
-            <a  target="_blank" href="#"><i class="fab fa-facebook"></i></a>
-            <a  target="_blank" href="#"><i class="fab fa-twitter"></i></a>
+        <a  target="_blank" href="<?php echo $site->facebookLink;?>"><i class="fab fa-facebook"></i></a>
+                <a  target="_blank" href="<?php echo $site->linkedinLink;?>"><i class="fab fa-linkedin"></i></a>
+                <a  target="_blank" href="<?php echo $site->githubLink;?>"><i class="fab fa-github"></i></a>
+                <a  target="_blank" href="<?php echo $site->twitterLink;?>"><i class="fab fa-twitter"></i></a>
         </div>
 
         <div>
@@ -563,7 +575,8 @@ session_start();
     
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
+
+    <
     </body>
 
 </html>
-

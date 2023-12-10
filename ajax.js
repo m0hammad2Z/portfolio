@@ -29,7 +29,7 @@ window.onload = function() {
     });
 }
 
-function request(dom){
+function request(){
     $.ajax({
         type: 'POST',
         url: 'themeHandling.php', 

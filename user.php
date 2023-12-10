@@ -60,17 +60,17 @@ class User {
     }
     
 
-    // function update(){
-    //     $stmt = $this->conn->prepare("UPDATE users SET name = :name, email = :email, password = :pass WHERE id = :id");
-    //     $stmt->bindParam(':id', $this->id);
-    //     $stmt->bindParam(':name', $this->name);
-    //     $stmt->bindParam(':email', $this->email);
-    //     $stmt->bindParam(':pass', $this->pass);
+    function update(){
+        $stmt = $this->conn->prepare("UPDATE users SET name = :name, email = :email, password = :pass, position = :pos, mobile = :mobile");
+        $stmt->bindParam(':name', $this->name);
+        $stmt->bindParam(':email', $this->email);
+        $stmt->bindParam(':pass', $this->pass);
+        $stmt->bindParam(':pos', $this->pos);
+        $stmt->bindParam(':mobile', $this->mobile);
 
-    //     $stmt->execute();
-    //     $stmt->closeCursor();
-    // }
-
+        $stmt->execute();
+        $stmt->closeCursor();
+    }
     // public static function delete($id){
     //     $c = new connect();
     //     $conn = $c->connectTo('localhost', 'postgres', '12345678', 'test');

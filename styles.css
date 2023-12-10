@@ -193,6 +193,7 @@ body > div{
 
 .head>.right-side>img {
     width: 100%;
+    border-radius: 50%;
 }
 
 .head > .bottom-arrow{
