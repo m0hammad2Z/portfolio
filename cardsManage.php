@@ -48,6 +48,13 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Dashboard</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="dashboard.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" integrity="sha512-uKQ39gEGiyUJl4AI6L+ekBdGKpGw4xJ55+xyJG7YFlJokPNYegn9KwQ3P8A7aFQAUtUsAQHep+d/lrGqrbPIDQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
 </head>
 
 <style>
@@ -66,8 +73,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
     <div class="row ">
 
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center p-5 pb-2 mb-3">
-          <h1 class="h2 ml-3">Dashboard</h1>
+        <div class="d-flex justify-content-end flex-wrap flex-md-nowrap align-items-center p-5 pb-2 mb-3">
           <div class="d-flex justify-content-end gap-3">
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" id="add-card" data-bs-target="#exampleModal">Add Card</button>
             <button type="button" class="btn btn-primary" onclick="window.location.href='dashboard.php?logout=1'">Logout</button>
@@ -75,21 +81,24 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         </div>
 
           <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
+          <h1 class="h2 ml-3" style="color:white; text-align:center; margin-bottom:10px;">Dashboard</h1>
               <div class="position-sticky">
-                  <ul class="nav flex-column">
+              <ul class="nav flex-column">
                       <li class="nav-item">
                           <a class="nav-link active" href="dashboard.php">
-                              Home
+                          <i class="fas fa-home"></i>&nbsp;&nbsp; Home
                           </a>
                       </li>
                       <li class="nav-item">
-                      <a class="nav-link" href="cardsManage.php">
-                              Manage cards
+                          <a class="nav-link" href="cardsManage.php">
+                          <i class="fas fa-address-card"></i>&nbsp;&nbsp; Manage cards 
                           </a>
                       </li>
+
+                      
                       <li class="nav-item">
-                      <a class="nav-link" href="index.php" target="_blank">
-                              View portfolio website
+                          <a class="nav-link" href="index.php" target="_blank">
+                          <i class="fas fa-eye"></i>&nbsp;&nbsp; View portfolio 
                           </a>
                       </li>
 
