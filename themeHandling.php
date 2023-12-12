@@ -1,6 +1,7 @@
 <?php 
     include('theme.php');
 
+    // To change the data in the database
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $request = json_decode(file_get_contents('php://input'), true);
 
@@ -16,6 +17,7 @@
     }
 
 
+    // To send the theme data to the front end
     if($_SERVER['REQUEST_METHOD'] == 'GET'){
         $theme = Theme::getTheme();
 

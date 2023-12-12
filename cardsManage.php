@@ -5,55 +5,38 @@ if(!isset($_SESSION['user'])){
 }
 
 include('user.php');
-include('site.php');
+
 include('cards.php');
 
-$site = Site::getSite();
-
-if($site === null){
-    $site = new Site("Hello,", "files/Mohammad_Al-Zaro_CV.pdf", "images/me.png", "I AM A WEB DEVELOPER AND SOFTWARE ENGINEER WITH A STRONG WORK ETHIC AND A PASSION FOR INNOVATION. I HAVE THE SKILLS AND EXPERIENCE TO CONTRIBUTE TO A VARIETY OF PROJECTS IN A PROFESSIONAL ENVIRONMENT.", "https://www.facebook.com/mohammad.alzaro.1", "https://twitter.com/MohammadAlZaro", "https://www.linkedin.com/in/mohammad-al-zaro-0b0b3a1b3/", "github.com/MohammadAlZaro");
-    $site->add();
-}
-
-
 $user = User::getUser();
+
+
 $card = new Card();
 
+$projects = $card->getCardByType(CardTypes::PROJECT);
+$skills = $card->getCardByType(CardTypes::DEV);
+$softSkills = $card->getCardByType(CardTypes::SOFT);
+$educations = $card->getCardByType(CardTypes::EDUCATION);
+$experiences = $card->getCardByType(CardTypes::EXPERIENCE);
+$services = $card->getCardByType(CardTypes::SERVICE);
 
 
-if($_SERVER['REQUEST_METHOD'] == 'POST'){
-    if($_POST['_method'] == 'sitePost'){
-        $site->welcomeText = $_POST['welcomeText'];
-        $site->cvLink = $_POST['cvLink'];
-        $site->imageLink = $_POST['imageLink'];
-        $site->aboutText = $_POST['aboutText'];
-        $site->facebookLink = $_POST['facebook-link'];
-        $site->twitterLink = $_POST['twitter-link'];
-        $site->linkedinLink = $_POST['linkedin-link'];
-        $site->githubLink = $_POST['github-link'];
-        $site->update();
-    
-    
-        $user->name = $_POST['name'];
-        $user->email = $_POST['email'];
-        $user->mobile = $_POST['mobileNumber'];
-        $user->pos = $_POST['position'];
-        $user->update();
-    
-        $_SESSION['user'] = [
-            'name' => $_POST['name'],
-            'email' => $_POST['email'],
-            'pos' => $_POST['position'],
-            'mobile' =>  $_POST['mobileNumber']
-        ];
-    }
+// Delete card
+if(isset($_GET['delete-id'])){
+    $card->deleteCard($_GET['delete-id']);
+    header("Location: cardsManage.php");
 }
 
-if(isset($_GET['logout'])){
-    if($_GET['logout'] == 1){
-        session_destroy();
-        header("Location: login.php");
-    }
+if($_SERVER['REQUEST_METHOD'] == 'POST'){
+  if($_POST['_method'] == "cardUpdate"){
+    $card->updateCard($_POST['id'], $_POST['type'], $_POST['title'], $_POST['organization'], $_POST['description'], $_POST['startYear'], $_POST['endYear'], $_POST['icon'], $_POST['imageLink'], $_POST['demoLink'], $_POST['githubLink']);
+    header("Location: cardsManage.php");
+  }
+
+  if ($_POST['_method'] == 'cardPost'){
+    $card->addCard($_POST['type'], $_POST['title'], $_POST['organization'], $_POST['description'], $_POST['startYear'], $_POST['endYear'], $_POST['icon'], $_POST['imageLink'], $_POST['demoLink'], $_POST['githubLink']);
+    header("Location: cardsManage.php");
+  }
 }
 ?>
 
@@ -66,16 +49,24 @@ if(isset($_GET['logout'])){
   <title>Dashboard</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
 </head>
+
+<style>
+    body{
+      width: 90%;
+      margin: auto;
+    }
+  </style>
+
 <body>
 
 
 
-  <div class="container-fluid">
+  <div class="container-fluid ">
     <div class="row">
 
+    <div class="row ">
 
-      <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center p-5 pb-2 mb-3">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center p-5 pb-2 mb-3">
           <h1 class="h2 ml-3">Dashboard</h1>
           <div class="d-flex justify-content-end gap-3">
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" id="add-card" data-bs-target="#exampleModal">Add Card</button>
@@ -83,10 +74,6 @@ if(isset($_GET['logout'])){
           </div>  
         </div>
 
-        
-      
-
-        <div class="row">
           <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
               <div class="position-sticky">
                   <ul class="nav flex-column">
@@ -96,7 +83,7 @@ if(isset($_GET['logout'])){
                           </a>
                       </li>
                       <li class="nav-item">
-                          <a class="nav-link" href="cardsManage.php">
+                      <a class="nav-link" href="cardsManage.php">
                               Manage cards
                           </a>
                       </li>
@@ -110,66 +97,136 @@ if(isset($_GET['logout'])){
               </div>
           </nav>
 
+          
+       <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+      
+          <?php
+          echo '<div class="h2 mt-3 pt-3">Projects</div>';
+          if($projects == null)
+            echo '<p align="center">No project cards</hp>';
+          else
+            foreach($projects as $project){
+              echo 
+              '<div class="col-md-10">
+              <div class="row mb-3 bg-light d-flex align-items-center p-3 justify-content-between">
+                <div class="col-md-8">
+                  <h2 class="text-primary">'.$project->title.'</h2>
+                  <p class="text-secondary">'.$project->type.'</p>
+                </div>
+                <div class="col-md-4 d-flex justify-content-end gap-3">
+                  <a class="btn btn-danger" href="cardsManage.php?delete-id='.$project->id.'">Delete</a>
+                  <button type="button" class="btn btn-primary update-button" data-bs-toggle="modal" data-bs-target="#exampleModal" data-values="'.htmlspecialchars(json_encode($project), ENT_QUOTES, 'UTF-8').'">Edit</button>
+                
+                  </div>
+              </div>
+          </div>';
+          }
+
+          
+            echo '<div class="h2 mt-3 pt-3">Dev Skills</div>';
+            if($skills == null) 
+              echo '<p align="center">No dev skill cards</hp>';
+            else
+          foreach($skills as $skill){
+              echo 
+              '<div class="col-md-10">
+              <div class="row mb-3 bg-light d-flex align-items-center p-3 justify-content-between">
+                <div class="col-md-8">
+                  <h2 class="text-primary">'.$skill->title.'</h2>
+                  <p class="text-secondary">'.$skill->type.'</p>
+                </div>
+                <div class="col-md-4 d-flex justify-content-end gap-3">
+                  <a class="btn btn-danger" href="cardsManage.php?delete-id='.$skill->id.'">Delete</a>
+                  <button type="button" class="btn btn-primary update-button" data-bs-toggle="modal" data-bs-target="#exampleModal" data-values="'.htmlspecialchars(json_encode($skill), ENT_QUOTES, 'UTF-8').'">Edit</button>
+                </div>
+              </div>
+          </div>';
+          }
+
+          echo '<div class="h2 mt-3 pt-3">Soft Skills</div>';
+          if($softSkills == null) 
+            echo '<p align="center">No soft skill cards</hp>';
+          else
+          foreach($softSkills as $softSkill){
+              echo 
+              '<div class="col-md-10">
+              <div class="row mb-3 bg-light d-flex align-items-center p-3 justify-content-between">
+                <div class="col-md-8">
+                  <h2 class="text-primary">'.$softSkill->title.'</h2>
+                  <p class="text-secondary">'.$softSkill->type.'</p>
+                </div>
+                <div class="col-md-4 d-flex justify-content-end gap-3">
+                  <a class="btn btn-danger" href="cardsManage.php?delete-id='.$softSkill->id.'">Delete</a>
+                  <button type="button" class="btn btn-primary update-button" data-bs-toggle="modal" data-bs-target="#exampleModal" data-values="'.htmlspecialchars(json_encode($softSkill), ENT_QUOTES, 'UTF-8').'">Edit</button>
+                </div>
+              </div>
+          </div>';
+        }
+
+        echo '<div class="h2 mt-3 pt-3">Education</div>';
+        if($educations == null) 
+            echo '<p align="center">No education cards</hp>';
+        else
+            foreach($educations as $education){
+              echo 
+              '<div class="col-md-10">
+              <div class="row mb-3 bg-light d-flex align-items-center p-3 justify-content-between">
+                <div class="col-md-8">
+                  <h2 class="text-primary">'.$education->title.'</h2>
+                  <p class="text-secondary">'.$education->type.'</p>
+                </div>
+                <div class="col-md-4 d-flex justify-content-end gap-3">
+                  <a class="btn btn-danger" href="cardsManage.php?delete-id='.$education->id.'">Delete</a>
+                  <button type="button" class="btn btn-primary update-button" data-bs-toggle="modal" data-bs-target="#exampleModal" data-values="'.htmlspecialchars(json_encode($education), ENT_QUOTES, 'UTF-8').'">Edit</button>
+                </div>
+              </div>
+          </div>';
+        }
+
+
+    echo '<div class="h2 mt-3 pt-3">Experience</div>';
+    if($experiences == null) 
+        echo '<p align="center">No experience cards</hp>';
+    else
+      foreach($experiences as $experience){
+        echo
+        '<div class="col-md-10">
+        <div class="row mb-3 bg-light d-flex align-items-center p-3 justify-content-between">
           <div class="col-md-8">
-            <form action="dashboard.php" method="POST">
-            <div class="mb-3">
-                <input style="display: none;" class="_method" name="_method" value="sitePost">
-                <label for="name" class="form-label">Name</label>
-                <input type="text" class="form-control" id="name" name="name" placeholder="Your Name" value="<?php echo $user->name; ?>">
-                </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="Your Email" value="<?php echo $user->email; ?>">
-                </div>
-                <div class="mb-3">
-                    <label for="position" class="form-label">Position</label>
-                    <input type="text" class="form-control" id="position" name="position" placeholder="Your Position"  value="<?php echo $user->pos; ?>">
-                </div>
-                <div class="mb-3">
-                    <label for="welcomeText" class="form-label">Welcome Text</label>
-                    <input type="text" class="form-control" id="welcomeText" name="welcomeText" placeholder="Welcome message" value="<?php echo $site->welcomeText; ?>">
-                </div>
-                <div class="mb-3">
-                    <label for="cvLink" class="form-label">CV Link</label>
-                    <input type="text" class="form-control" id="cvLink" name="cvLink" placeholder="Link to your CV" value="<?php echo $site->cvLink; ?>">
-                </div>
-                <div class="mb-3">
-                    <label for="imageLink" class="form-label">Image Link</label>
-                    <input type="text" class="form-control" id="imageLink" name="imageLink" placeholder="Link to your Image" value="<?php echo $site->imageLink; ?>">
-                </div>
-                <div class="mb-3">
-                    <label for="mobileNumber" class="form-label">Mobile Number</label>
-                    <input type="tel" class="form-control" id="mobileNumber" name="mobileNumber" placeholder="Your Mobile Number" value="<?php echo $user->mobile; ?>">
-                </div>
-                <div class="mb-3">
-                    <label for="facebook-link" class="form-label">Facebook Link</label>
-                    <input type="text" class="form-control" id="facebook-link" name="facebook-link" placeholder="Link to your Facebook" value="<?php echo $site->facebookLink; ?>">
-                </div>
-                <div class="mb-3">
-                    <label for="twitter-link" class="form-label">Twitter Link</label>
-                    <input type="text" class="form-control" id="twitter-link" name="twitter-link" placeholder="Link to your Twitter" value="<?php echo $site->twitterLink; ?>">
-                </div>
-
-                <div class="mb-3">
-                    <label for="linkedin-link" class="form-label">LinkedIn Link</label>
-                    <input type="text" class="form-control" id="linkedin-link" name="linkedin-link" placeholder="Link to your LinkedIn" value="<?php echo $site->linkedinLink; ?>">
-                </div>
-
-                <div class="mb-3">
-                    <label for="github-link" class="form-label">Github Link</label>
-                    <input type="text" class="form-control" id="github-link" name="github-link" placeholder="Link to your Github" value="<?php echo $site->githubLink; ?>">
-                </div>
-
-
-                <div class="mb-3">
-                    <label for="aboutText" class="form-label">About Text</label>
-                    <textarea class="form-control" id="aboutText" name="aboutText" rows="3" placeholder="About yourself"><?php echo $site->aboutText; ?></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary">Save Changes</button>
-
-            </form>
+            <h2 class="text-primary">'.$experience->title.'</h2>
+            <p class="text-secondary">'.$experience->type.'</p>
+            </div>
+            <div class="col-md-4 d-flex justify-content-end gap-3">
+              <a class="btn btn-danger" href="cardsManage.php?delete-id='.$experience->id.'">Delete</a>
+              <button type="button" class="btn btn-primary update-button" data-bs-toggle="modal" data-bs-target="#exampleModal" data-values="'.htmlspecialchars(json_encode($experience), ENT_QUOTES, 'UTF-8').'">Edit</button>
+            </div>
           </div>
+        </div>';
+    }
+
+
+  echo '<div class="h2 mt-3 pt-3">Services</div>';
+  if($services == null) 
+      echo '<p align="center">No education cards</hp>';
+  else
+  foreach($services as $service){
+    echo
+    '<div class="col-md-10">
+    <div class="row mb-3 bg-light d-flex align-items-center p-3 justify-content-between">
+      <div class="col-md-8">
+        <h2 class="text-primary">'.$service->title.'</h2>
+        <p class="text-secondary">'.$service->type.'</p>
         </div>
+        <div class="col-md-4 d-flex justify-content-end gap-3">
+          <a class="btn btn-danger" href="cardsManage.php?delete-id='.$service->id.'">Delete</a>
+          <button type="button" class="btn btn-primary update-button" data-bs-toggle="modal" data-bs-target="#exampleModal" data-values="'.htmlspecialchars(json_encode($service), ENT_QUOTES, 'UTF-8').'">Edit</button>
+        </div>
+      </div>
+    </div>';
+  }
+          
+
+              ?>
 
       </main>
     </div>
@@ -224,7 +281,7 @@ if(isset($_GET['logout'])){
       case "education":
         formContentElement.innerHTML = `
           <form action="cardsManage.php" method="POST">
-          <input style="display: none;" class="_method" name="_method" value="cardPost">
+            <input style="display: none;" id="request-type" class="_method" name="_method" value="cardPost">
             <label for="type" class="form-label">Type:</label>
             <input type="text" class="form-control" id="type" value="education" name="type" readonly>
             <label for="title" class="form-label">Title:</label>
@@ -251,7 +308,7 @@ if(isset($_GET['logout'])){
       case "soft_skill":
         formContentElement.innerHTML = `
           <form action="cardsManage.php" method="POST">
-            <input style="display: none;" class="_method" name="_method" value="cardPost">
+            <input style="display: none;" id="request-type"  class="_method" name="_method" value="cardPost">
             <label for="type" class="form-label">Type:</label>
             <input type="text" class="form-control" id="type" value="soft_skill" name="type" readonly>
             <label for="title" class="form-label">Title:</label>
@@ -278,7 +335,7 @@ if(isset($_GET['logout'])){
       case "dev_skill":
         formContentElement.innerHTML = `
           <form action="cardsManage.php" method="POST">
-            <input style="display: none;" class="_method" name="_method" value="cardPost">
+            <input style="display: none;" id="request-type" class="_method" name="_method" value="cardPost">
             <label for="type" class="form-label">Type:</label>
             <input type="text" class="form-control" id="type" value="dev_skill" name="type" readonly>
             <label for="title" class="form-label">Title:</label>
@@ -306,7 +363,7 @@ if(isset($_GET['logout'])){
       case "experience":
         formContentElement.innerHTML = `
           <form action="cardsManage.php" method="POST">
-            <input style="display: none;" class="_method" name="_method" value="cardPost">
+            <input style="display: none;" id="request-type"  class="_method" name="_method" value="cardPost">
             <label for="type" class="form-label">Type:</label>
             <input type="text" class="form-control" id="type" value="experience" name="type" readonly>
             <label for="title" class="form-label">Title:</label>
@@ -333,7 +390,7 @@ if(isset($_GET['logout'])){
       case "project":
         formContentElement.innerHTML = `
           <form action="cardsManage.php" method="POST">
-            <input style="display: none;" class="_method" name="_method" value="cardPost">
+            <input style="display: none;" id="request-type"  class="_method" name="_method" value="cardPost">
             <label for="type" class="form-label">Type:</label>
             <input type="text" class="form-control" id="type" value="project" name="type" readonly>
             <label for="title" class="form-label">Title:</label>
@@ -360,7 +417,7 @@ if(isset($_GET['logout'])){
       case "service":
         formContentElement.innerHTML = `
           <form action="cardsManage.php" method="POST">
-            <input style="display: none;" class="_method" name="_method" value="cardPost">
+            <input style="display: none;" id="request-type"  class="_method" name="_method" value="cardPost">
             <label for="type" class="form-label">Type:</label>
             <input type="text" class="form-control" id="type" value="service" name="type" readonly>
             <label for="title" class="form-label">Title:</label>
@@ -384,16 +441,64 @@ if(isset($_GET['logout'])){
             <input type="submit" class="btn btn-primary" value="Submit">
           </form>`;
         break;
-      default:
-        // Handle default case or add more cases as needed
-        break;
+
     }
   }
 
   loadFormContent(document.getElementById("categoryDropdown").value);
+
+  document.getElementById("add-card").addEventListener("click", function () {
+    document.getElementById("categoryDropdown").disabled = false;
+    document.getElementById("request-type").value = "cardPost";
+    document.getElementById("categoryDropdown").value = "project";
+    loadFormContent(document.getElementById("categoryDropdown").value);
+
+  });
+
 </script>
+
+<script>
+    function setupUpdateButtons() {
+      let updateButtons = document.querySelectorAll(".update-button");
+      updateButtons.forEach(function (updateButton) {
+        updateButton.addEventListener("click", function () {
+          document.getElementById("categoryDropdown").disabled = true;
+
+          let data = JSON.parse(this.getAttribute("data-values"));
+
+
+          loadFormContent(data['type']);
+          document.getElementById("request-type").value = "cardUpdate";
+          document.getElementById("categoryDropdown").value = data['type'];
+          document.getElementById("type").value = data['type'];
+          document.getElementById("title").value = data['title'];
+          document.getElementById("organization").value = data['organization'];
+          document.getElementById("description").value = data['description'];
+          document.getElementById("startYear").value = data['startYear'];
+          document.getElementById("endYear").value = data['endYear'];
+          document.getElementById("icon").value = data['icon'];
+          document.getElementById("imageLink").value = data['imageLink'];
+          document.getElementById("demoLink").value = data['demoLink'];
+          document.getElementById("githubLink").value = data['githubLink'];
+
+          const id = data['id'];
+          let idInput = document.createElement("input");
+          idInput.setAttribute("style", "display: none;");
+          idInput.setAttribute("name", 'id');
+          idInput.setAttribute("value", id);
+          document.getElementById("formContent").getElementsByTagName("form")[0].appendChild(idInput);
+        });
+      });
+    }
+
+    // On page load setup update buttons
+    
+
+    setupUpdateButtons();
+
+</script>
+
+
 
 </body>
 </html>
-
-
