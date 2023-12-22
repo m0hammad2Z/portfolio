@@ -1,7 +1,5 @@
 # Portfolio
 
-https://m0hammad2z.github.io/portfolio/
-
 ## Introduction
 This is my personal portfolio where I showcase my technical skills, projects, and professional experience.
 
